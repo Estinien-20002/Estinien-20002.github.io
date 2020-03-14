@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="jquery-3.4.1.min.js" type="text/javascript"></script>
+    <style>
+        body {
+            background-color: #1d1d1d;
+            background:url(images/background2.jpg) no-repeat;
+            background-size:100% 100%; 
+            background-attachment: fixed;
+        }
+
+        .disappear {
+            display: none;
+        }
+
+        div {
+            box-sizing: border-box;
+
+        }
+
+        p {
+            font-family: "微软雅黑";
+        }
+
+        .p-input {
+            color: #ffffff;
+            font-size: 13px;
+        }
+
+        li {
+            font-family: "微软雅黑";
+        }
+
+        #big-box {
+            width: 110vh;
+            height: 90vh;
+
+            margin: 4vh auto auto auto;
+            border-radius: 1%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #data-part {
+            width: 50vh;
+            height: 80vh;
+            background-color: #333333;
+            border-radius: 10px;
+            margin: 2vh 1vh 2vh 2vh;
+            box-shadow: 3px 3px 8px -5px #000000;
+        }
+
+        #firstLevel {
+            width: 50vh;
+            height: 80vh;
+            background-color: #333333;
+            border-radius: 10px;
+            margin: 2vh 1vh 2vh 1vh;
+            box-shadow: 3px 3px 8px -5px #000000;
+        }
+
+
+        #select-line {
+            display: flex;
+            padding: 1vh 1vh 1vh 5vh;
+        }
+
+        #select-position {
+            list-style-type: none;
+        }
+
+        .position {
+            margin-right: 40px;
+        }
+
+        .position p {
+            background-color: #ffffff;
+            display: block;
+            line-height: 35px;
+            height: 35px;
+            width: 100px;
+            padding: 0 0 0 10px;
+            box-sizing: border-box;
+        }
+
+        .no-append:after {
+            content: '';
+            display: block;
+            width: 7px;
+            height: 7px;
+            border-left: 1px #ccc solid;
+            border-bottom: 1px #ccc solid;
+            position: absolute;
+            top: 3vh;
+            right: 11px;
+            transform: rotate(-45deg);
+            transition: transfrom .3s ease-in, top .3s ease-out;
+        }
+
+        .append:after {
+            content: '';
+            display: block;
+            width: 7px;
+            height: 7px;
+            border-left: 1px #ccc solid;
+            border-bottom: 1px #ccc solid;
+            position: absolute;
+            top: 3.5vh;
+            right: 10px;
+            transform: rotate(135deg);
+            transition: transfrom .3s ease-in, top .3s ease-out;
+        }
+
+        .position ul {
+            list-style-type: none;
+            background-color: #ffffff;
+            position: absolute;
+            top: 50px;
+            margin: 0;
+            padding: 0;
+            transition: 0.5s all;
+        }
+
+
+        li {
+            height: 35px;
+            width: 100px;
+            line-height: 35px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            transition: 0.5s all;
+        }
+
+        li:hover {
+            background-color: #eeeeee;
+        }
+
+        .input-line {
+
+            display: flex;
+            width: 100px;
+            height: 30px;
+            align-items: center;
+            box-sizing: border-box;
+            margin: 20px auto 20px auto;
+
+        }
+
+        .input-line p {
+
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            margin-right: 5px;
+        }
+
+        input {
+            border: none;
+            background-color: #ffffff;
+            width: 40px;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        #input-data-box {
+
+            width: 50vh;
+            height: 400px;
+            box-sizing: border-box;
+            display: flex;
+        }
+
+        #input-data-set{
+            width: 200px;
+            height:30px;
+            line-height:30px;
+            box-sizing:border-box;
+            display:flex;
+            align-items: center;
+            margin:50px auto 10px auto;
+        }
+        #input-data-set p{
+            display: block;
+            color:#ffffff;
+            margin-right: 5px;
+            margin-left:5px;
+        }
+        .input-y {
+            width: 25vh;
+        }
+
+        #button-box {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+        #button-set{
+            margin:10px auto 40px auto;
+            box-sizing: border-box;
+            width: 80px;
+            height: 30px;
+        }
+
+        .button {
+            width: 70px;
+            height: 30px;
+            border-radius: 60px;
+            background-color: #ffffff;
+            text-align: center;
+            font-size: 12px;
+            line-height: 30px;
+            transition: 1.5s all;
+
+        }
+
+        .s-button{
+            width: 80px;
+            height: 30px;
+            border-radius: 60px;
+            background-color: #ffffff;
+            text-align: center;
+            font-size: 12px;
+            line-height: 30px;
+            transition: 1.5s all;
+            margin:0 auto 0 auto;
+        }
+
+        .button:hover {
+            background-color: #d2d2d2;
+            cursor: pointer;
+        }
+        .s-button:hover {
+            background-color: #d2d2d2;
+            cursor: pointer;
+        }
+
+
+        /*第二个页面*/
+        .sfsb-pic {
+            width: 35px;
+            height: 35px;
+            margin-right: 10px;
+        }
+
+        .sfsb {
+            position: relative;
+        }
+
+        .sfsb-fisrt {
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .sfsb-second {
+            display: flex;
+            align-items: center;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        #show-firstLevel {
+
+            width: 45vh;
+            height: 70vh;
+            margin: 3vh auto 3vh auto;
+            position: relative;
+            overflow-y: auto;
+
+        }
+        #show-firstLevel::-webkit-scrollbar{
+            width:7px;
+            height:70vh;
+        }
+
+        #show-firstLevel::-webkit-scrollbar-thumb{
+            background-color: #1d1d1d;  
+            border-radius: 10px; 
+        }
+
+        .G1name {
+            color: #ffffff;
+            margin-right: 10px;
+        }
+
+        .G1num {
+            color: #7ea6b9;
+            margin-right: 10px;
+        }
+
+        .G2num {
+            color: #f4b5b5;
+            margin-right: 10px;
+        }
+
+        .x {
+            color: #7ea6b9;
+            margin-right: 5px;
+        }
+
+        .G2x {
+            color: #f4b5b5;
+            margin-right: 5px;
+        }
+
+        .noappend-2:before {
+            content: '';
+            display: block;
+            width: 7px;
+            height: 7px;
+            border-left: 1px #ccc solid;
+            border-bottom: 1px #ccc solid;
+            position: absolute;
+            top: 19px;
+            transform: rotate(-135deg);
+            transition: transfrom .3s ease-in, top .3s ease-out;
+        }
+
+        .append-2:before {
+            content: '';
+            display: block;
+            width: 7px;
+            height: 7px;
+            border-left: 1px #ccc solid;
+            border-bottom: 1px #ccc solid;
+            position: absolute;
+            top: 19px;
+            transform: rotate(-45deg);
+            transition: transfrom .3s ease-in, top .3s ease-out;
+        }
+
+        #Copyright{
+            position:fixed;
+            bottom:0;
+            width:100%;
+        }
+        #Copyright p{
+            color:#ffffff;
+            font-size:11px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="big-box">
+
+        <div id="data-part">
+            <div id="select-line">
+
+                <div class="position    no-append" style="position:relative;">
+                    <p class="position-select-position click-one" id="p-first-select">选择职位</p>
+                    <ul id="select-position" class="disappear">
+                        <li class="li-position">坦克</li>
+                        <li class="li-position">奶妈</li>
+                        <li class="li-position">近战</li>
+                        <li class="li-position">远敏</li>
+                        <li class="li-position">法d</li>
+                    </ul>
+                </div>
+
+                <div class="position    no-append   disappear " style="position:relative;" id="second-select">
+                    <p class="position-select-work click-one" id="p-second-select"></p>
+
+                    <ul id="select-work" class="disappear">
+                    </ul>
+                </div>
+            </div>
+
+            <div id="input-data-box" class="ani-input" style="display:none;">
+
+                <div class="input-y">
+                    <div class="input-line">
+                        <p class="p-input">主手</p><input id="input-mainWeapon" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">头部</p><input id="input-head" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">上衣</p><input id="input-clothe" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">手部</p><input id="input-hand" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">腰带</p><input id="input-belt" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">腿部</p><input id="input-pan" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">鞋子</p><input id="input-shoes" type="number"></input>
+                    </div>
+                </div>
+
+
+
+
+                <div class="input-y">
+                    <div class="input-line">
+                        <p class="p-input">副手</p><input id="input-secondWeapon" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">耳饰</p><input id="input-earrings" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">项链</p><input id="input-necklace" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">手镯</p><input id="input-bracelet" type="number"></input>
+                    </div>
+
+                    <div class="input-line">
+                        <p class="p-input">戒指</p><input id="input-ring" type="number"></input>
+                    </div>
+                </div>
+            </div>
+
+            <div id="input-data-set" class="ani-input" style="display:none;">
+                <p>或者你想要计算</p><input id="input-set" type="number"/><p>套</p>
+            </div>
+            <div id="button-set" class="ani-input" style="display:none;"><div class="s-button ">应用到上面</div></div>
+            <div id="button-box" class="ani-input " style="display:none;">
+                <div id="button-start" class="button">
+                    计算
+                </div>
+                <div id="button-restart" class="button">
+                    重新填写
+                </div>
+            </div>
+
+        </div>
+
+        <div id="firstLevel" class="disappear">
+            <div id="show-firstLevel">
+                <!--写滚动-->
+                <div class="sfsb disappear" id="c1">
+                    <!--c1=火之晶簇-->
+                    <!--sfsb=show first small box-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/火之晶簇.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">火之晶簇</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="c1-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb disappear" id="c2">
+                    <!--c2=冰之晶簇-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/冰之晶簇.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">冰之晶簇</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="c2-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb disappear" id="c3">
+                    <!--c3=风之晶簇-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/风之晶簇.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">风之晶簇</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="c3-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb disappear" id="c4">
+                    <!--c4=土之晶簇-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/土之晶簇.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">土之晶簇</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="c4-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb disappear" id="c5">
+                    <!--c5=雷之晶簇-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/雷之晶簇.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">雷之晶簇</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="c5-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb disappear" id="c6">
+                    <!--c6=水之晶簇-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/水之晶簇.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">水之晶簇</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="c6-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f1">
+                    <!--这个也有两级，用来查阅详细二级材料-->
+                    <div class="sfsb-fisrt"  style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/愈疮木木材.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">愈疮木木材</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f1-num">0</p>
+                    </div>
+                    <div class="sssb disappear" id="f1-G2">
+                        <div class="sfsb-second" id="f1-s1">
+                            <div class="sfsb-pic"><img src="images/风之水晶.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">风之水晶</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f1-snum">7</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f1-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f1-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f1-s2">
+                            <div class="sfsb-pic"><img src="images/愈疮木原木.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">愈疮木原木</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f1-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f1-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f1-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f2">
+                    <!--这个也有两级，用来查阅详细二级材料-->
+                    <div class="sfsb-fisrt"  style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/メルバウ材.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">メルバウ材</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f2-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f2-G2">
+
+                        <div class="sfsb-second" id="f2-s1">
+                            <div class="sfsb-pic"><img src="images/冰之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">冰之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f2-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f2-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f2-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f2-s2">
+                            <div class="sfsb-pic"><img src="images/风之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">风之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f2-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f2-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f2-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f2-s3">
+                            <div class="sfsb-pic"><img src="images/メルバウ原木.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">メルバウ原木</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f2-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f2-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f2-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f2-s4">
+                            <div class="sfsb-pic"><img src="images/テンペストペースト.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">テンペストペースト</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f2-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f2-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f2-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb disappear" id="f3">
+                    <!--f3=古树灵砂-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/古树灵砂.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">古树灵砂</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f3-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb disappear" id="f4">
+                    <!--f4=一水灵砂-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/一水灵砂.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">一水灵砂</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f4-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb disappear" id="f5">
+                    <!--f5=险山灵砂-->
+                    <div class="sfsb-fisrt" >
+                        <div class="sfsb-pic"><img src="images/险山灵砂.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">险山灵砂</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f5-num">0</p>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f6">
+                    <!--f6=プルプラビーズ-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/プルプラビーズ.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">プルプラビーズ</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f6-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f6-G2">
+                        <div class="sfsb-second" id="f6-s1">
+                            <div class="sfsb-pic"><img src="images/火之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">火之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f6-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f6-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f6-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f6-s2">
+                            <div class="sfsb-pic"><img src="images/风之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">风之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f6-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f6-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f6-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f6-s3">
+                            <div class="sfsb-pic"><img src="images/プルプラシェルチップ.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">プルプラシェルチップ</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f6-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f6-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f6-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f6-s4">
+                            <div class="sfsb-pic"><img src="images/奇人の人工樹脂.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">奇人の人工樹脂</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f6-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f6-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f6-G2Finalnum">0</p>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f7">
+                    <!--f7=矮人银块-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/矮人银块.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">矮人银块</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f7-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f7-G2">
+                        <div class="sfsb-second" id="f7-s1">
+                            <div class="sfsb-pic"><img src="images/风之水晶.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">风之水晶</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f7-snum">7</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f7-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f7-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f7-s2">
+                            <div class="sfsb-pic"><img src="images/灵银沙.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">灵银沙</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f7-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f7-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f7-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f7-s3">
+                            <div class="sfsb-pic"><img src="images/暗银沙.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">暗银沙</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f7-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f7-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f7-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f8">
+                    <!--f8=プルプラビーズ-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/矮人银锭.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">矮人银锭</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f8-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f8-G2">
+                        <div class="sfsb-second" id="f8-s1">
+                            <div class="sfsb-pic"><img src="images/火之水晶.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">火之水晶</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f8-snum">7</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f8-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f8-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f8-s2">
+                            <div class="sfsb-pic"><img src="images/灵银矿.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">灵银矿</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f8-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f8-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f8-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f8-s3">
+                            <div class="sfsb-pic"><img src="images/暗银矿.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">暗银矿</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f8-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f8-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f8-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f9">
+                    <!--f9=コバルトアロイインゴット-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/コバルトアロイインゴット.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">コバルトアロイインゴット</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f9-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f9-G2">
+                        <div class="sfsb-second" id="f9-s1">
+                            <div class="sfsb-pic"><img src="images/火之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">火之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f9-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f9-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f9-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f9-s2">
+                            <div class="sfsb-pic"><img src="images/土之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">土之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f9-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f9-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f9-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f9-s3">
+                            <div class="sfsb-pic"><img src="images/輝コバルト鉱.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">輝コバルト鉱</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f9-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f9-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f9-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f9-s4">
+                            <div class="sfsb-pic"><img src="images/ドワーヴンクロマイト.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">ドワーヴンクロマイト</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f9-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f9-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f9-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f10">
+                    <!--f10=紫根布-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/紫根布.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">紫根布</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f10-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f10-G2">
+                        <div class="sfsb-second" id="f10-s1">
+                            <div class="sfsb-pic"><img src="images/风之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">风之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f10-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f10-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f10-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f10-s2">
+                            <div class="sfsb-pic"><img src="images/雷之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">雷之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f10-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f10-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f10-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f10-s3">
+                            <div class="sfsb-pic"><img src="images/紫根.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">紫根</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f10-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f10-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f10-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f10-s4">
+                            <div class="sfsb-pic"><img src="images/ピクシーフリース.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">ピクシーフリース</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f10-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f10-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f10-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f11">
+                    <!--f11=矮人棉布-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/矮人棉布.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">矮人棉布</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f11-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f11-G2">
+                        <div class="sfsb-second" id="f11-s1">
+                            <div class="sfsb-pic"><img src="images/雷之水晶.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">雷之水晶</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f11-snum">7</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f11-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f11-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f11-s2">
+                            <div class="sfsb-pic"><img src="images/矮人棉.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">矮人棉</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f11-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f11-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f11-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f12">
+                    <!--f12=海燕革-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/海燕革.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">海燕革</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f12-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f12-G2">
+                        <div class="sfsb-second" id="f12-s1">
+                            <div class="sfsb-pic"><img src="images/土之水晶.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">土之水晶</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f12-snum">7</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f12-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f12-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f12-s2">
+                            <div class="sfsb-pic"><img src="images/海燕的粗皮.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">海燕的粗皮</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f12-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f12-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f12-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f12-s3">
+                            <div class="sfsb-pic"><img src="images/黄明矾.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">黄明矾</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f12-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f12-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f12-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f13">
+                    <!--f13=メガラニアレザー-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/メガラニアレザー.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">メガラニアレザー</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f13-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f13-G2">
+                        <div class="sfsb-second" id="f13-s1">
+                            <div class="sfsb-pic"><img src="images/风之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">风之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f13-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f13-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f13-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f13-s2">
+                            <div class="sfsb-pic"><img src="images/土之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">土之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f13-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f13-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f13-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f13-s3">
+                            <div class="sfsb-pic"><img src="images/アッシュアルメン.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">アッシュアルメン</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f13-snum">4</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f13-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f13-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f13-s4">
+                            <div class="sfsb-pic"><img src="images/メガラニアの粗皮.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">メガラニアの粗皮</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f13-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f13-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f13-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="sfsb noappend-2 click-one disappear" id="f14">
+                    <!--f14=活力の幻水G3-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/活力の幻水G3.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">活力の幻水G3</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f14-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f14-G2">
+                        <div class="sfsb-second" id="f14-s1">
+                            <div class="sfsb-pic"><img src="images/雷之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">雷之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f14-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f14-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f14-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f14-s2">
+                            <div class="sfsb-pic"><img src="images/水之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">水之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f14-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f14-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f14-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f14-s3">
+                            <div class="sfsb-pic"><img src="images/青柠罗勒草.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">青柠罗勒草</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f14-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f14-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f14-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f14-s4">
+                            <div class="sfsb-pic"><img src="images/黑暗灵砂.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">黑暗灵砂</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f14-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f14-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f14-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f14-s5">
+                            <div class="sfsb-pic"><img src="images/高纯度炼金药.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">高纯度炼金药</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f14-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f14-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f14-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f14-s6">
+                            <div class="sfsb-pic"><img src="images/レガリスゼンマイ.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">レガリスゼンマイ</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f14-snum">3</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f14-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f14-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f15">
+                    <!--f15=剛力の幻水G3-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/剛力の幻水G3.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">剛力の幻水G3</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f15-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f15-G2">
+                        <div class="sfsb-second" id="f15-s1">
+                            <div class="sfsb-pic"><img src="images/雷之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">雷之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f15-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f15-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f15-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f15-s2">
+                            <div class="sfsb-pic"><img src="images/水之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">水之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f15-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f15-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f15-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f15-s3">
+                            <div class="sfsb-pic"><img src="images/甜香荠.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">甜香荠</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f15-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f15-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f15-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f15-s4">
+                            <div class="sfsb-pic"><img src="images/黑暗灵砂.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">黑暗灵砂</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f15-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f15-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f15-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f15-s5">
+                            <div class="sfsb-pic"><img src="images/高纯度炼金药.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">高纯度炼金药</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f15-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f15-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f15-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f15-s6">
+                            <div class="sfsb-pic"><img src="images/レガリスゼンマイ.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">レガリスゼンマイ</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f15-snum">3</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f15-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f15-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f16">
+                    <!--f16=眼力の幻水G3-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/眼力の幻水G3.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">眼力の幻水G3</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f16-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f16-G2">
+                        <div class="sfsb-second" id="f16-s1">
+                            <div class="sfsb-pic"><img src="images/雷之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">雷之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f16-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f16-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f16-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f16-s2">
+                            <div class="sfsb-pic"><img src="images/水之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">水之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f16-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f16-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f16-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f16-s3">
+                            <div class="sfsb-pic"><img src="images/光芒大丁草.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">光芒大丁草</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f16-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f16-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f16-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f16-s4">
+                            <div class="sfsb-pic"><img src="images/黑暗灵砂.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">黑暗灵砂</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f16-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f16-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f16-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f16-s5">
+                            <div class="sfsb-pic"><img src="images/高纯度炼金药.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">高纯度炼金药</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f16-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f16-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f16-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f16-s6">
+                            <div class="sfsb-pic"><img src="images/レガリスゼンマイ.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">レガリスゼンマイ</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f16-snum">3</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f16-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f16-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f17">
+                    <!--f17=知力の幻水G3-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/知力の幻水G3.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">知力の幻水G3</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f17-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f17-G2">
+                        <div class="sfsb-second" id="f17-s1">
+                            <div class="sfsb-pic"><img src="images/雷之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">雷之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f17-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f17-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f17-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f17-s2">
+                            <div class="sfsb-pic"><img src="images/水之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">水之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f17-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f17-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f17-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f17-s3">
+                            <div class="sfsb-pic"><img src="images/邪衣薰衣草.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">邪衣薰衣草</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f17-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f17-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f17-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f17-s4">
+                            <div class="sfsb-pic"><img src="images/黑暗灵砂.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">黑暗灵砂</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f17-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f17-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f17-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f17-s5">
+                            <div class="sfsb-pic"><img src="images/高纯度炼金药.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">高纯度炼金药</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f17-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f17-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f17-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f17-s6">
+                            <div class="sfsb-pic"><img src="images/レガリスゼンマイ.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">レガリスゼンマイ</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f17-snum">3</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f17-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f17-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f18">
+                    <!--f18=心力の幻水G3-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/心力の幻水G3.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">心力の幻水G3</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f18-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f18-G2">
+                        <div class="sfsb-second" id="f18-s1">
+                            <div class="sfsb-pic"><img src="images/雷之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">雷之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f18-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f18-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f18-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f18-s2">
+                            <div class="sfsb-pic"><img src="images/水之晶簇.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">水之晶簇</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f18-snum">2</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f18-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f18-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f18-s3">
+                            <div class="sfsb-pic"><img src="images/虎百合.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">虎百合</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f18-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f18-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f18-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f18-s4">
+                            <div class="sfsb-pic"><img src="images/黑暗灵砂.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">黑暗灵砂</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f18-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f18-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f18-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f18-s5">
+                            <div class="sfsb-pic"><img src="images/高纯度炼金药.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">高纯度炼金药</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f18-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f18-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f18-G2Finalnum">0</p>
+                        </div>
+
+                        <div class="sfsb-second" id="f18-s6">
+                            <div class="sfsb-pic"><img src="images/レガリスゼンマイ.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">レガリスゼンマイ</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f18-snum">3</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f18-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f18-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sfsb noappend-2 click-one disappear" id="f19">
+                    <!--f19=暗银附魔墨水-->
+                    <div class="sfsb-fisrt" style="cursor: pointer;">
+                        <div class="sfsb-pic"><img src="images/暗银附魔墨水.png" style="width:100%; height:100%; " /></div>
+                        <p class="G1name">暗银附魔墨水</p>
+                        <p class="x">x</p>
+                        <p class="G1num" id="f19-num">0</p>
+                    </div>
+
+                    <div class="sssb disappear" id="f19-G2">
+                        <div class="sfsb-second" id="f19-s1">
+                            <div class="sfsb-pic"><img src="images/水之水晶.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">水之水晶</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f19-snum">7</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f19-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f19-G2Finalnum">0</p>
+                        </div>
+                   
+
+                    
+                        <div class="sfsb-second" id="f19-s2">
+                            <div class="sfsb-pic"><img src="images/暗银沙.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">暗银沙</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f19-snum">3</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f19-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f19-G2Finalnum">0</p>
+                        </div>
+                    
+
+                        <div class="sfsb-second" id="f19-s3">
+                            <div class="sfsb-pic"><img src="images/吸血草杯的卷须.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">吸血草杯的卷须</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f19-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f19-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f19-G2Finalnum">0</p>
+                        </div>
+                    
+
+                    
+                        <div class="sfsb-second" id="f19-s3">
+                            <div class="sfsb-pic"><img src="images/地下天然水.png" style="width:100%; height:100%; " /></div>
+                            <p class="G1name">地下天然水</p>
+                            <p class="G2x">x</p>
+                            <p class="G2num f19-snum">1</p>
+                            <p class="x">x</p>
+
+                            <p class="G1num f19-G2num">0</p>
+                            <p class="G2x">=</p>
+                            <p class="G2num f19-G2Finalnum">0</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div id="Copyright">
+        <p>Copyright 2016-2020 FFXIV.CN&埃斯蔕尼安@神拳痕 All rights reserved. Data,image FINAL FANTASY XIV©2010 - 2020 SQUARE ENIX CO., LTD. All Rights Reserved.</p>
+    </div>
+</body>
+
+<script src="5-2.js" type="text/javascript"></script>
+
+</html>
