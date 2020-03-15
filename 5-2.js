@@ -2011,6 +2011,7 @@ partsort[11] = 'ring';
 
 Cadd.addEventListener('click',function(event){
     
+    console.log("执行");
     if ( secontSelectValue ){
     cleardisappear();
     transmit();
