@@ -2092,6 +2092,8 @@ calBox.addEventListener('click',function(event){
             f[ i ] = itemSave[ idx ][ `f${i}` ];
         }
         changeinput( idx );
+        pSelectPosition.innerHTML = itemSave[ idx ].fwork;
+        pSelectWork.innerHTML = itemSave[ idx ].swork;
         $("#firstLevel").fadeIn("slow");
         show();
     }
