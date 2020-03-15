@@ -2092,6 +2092,7 @@ calBox.addEventListener('click',function(event){
             f[ i ] = itemSave[ idx ][ `f${i}` ];
         }
         changeinput( idx );
+        $("#firstLevel").fadeIn("slow");
         show();
     }
     
@@ -2120,5 +2121,6 @@ Sum.addEventListener('click', function(event){
             }
         }
     }
+    $("#firstLevel").fadeIn("slow");
     show();
 })
