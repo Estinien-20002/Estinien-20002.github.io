@@ -1639,6 +1639,13 @@ inputItem[ 'ring' ] = 0;
 
 startButton.addEventListener('click', function(event){
     cleardisappear();
+    transmit();
+    cal();
+    $("#firstLevel").fadeIn("slow");
+    show();
+})
+
+function transmit(){
     if ( iMainWeapon.value != 0 && iMainWeapon.value )  
         inputItem[ 'mainWeapon' ] = parseInt( iMainWeapon.value );
     if ( iHead.value != 0 && iHead.value ) 
@@ -1663,11 +1670,7 @@ startButton.addEventListener('click', function(event){
         inputItem[ 'bracelet' ] = parseInt( iBracelet.value );
     if ( iRing.value != 0 && iRing.value )
         inputItem[ 'ring' ] = parseInt( iRing.value );
-
-    cal();
-    $("#firstLevel").fadeIn("slow");
-    show();
-})
+}
 
 function cal(){
     for ( var i =0 ; i < 80 ; i++){
@@ -1692,32 +1695,6 @@ function cal(){
 }
 
 function cleardisappear(){
-    /*
-    c1Html.classList.add( "disappear" );
-    c2Html.classList.add( "disappear" );
-    c3Html.classList.add( "disappear" );
-    c4Html.classList.add( "disappear" );
-    c5Html.classList.add( "disappear" );
-    c6Html.classList.add( "disappear" );
-    f1Html.classList.add( "disappear" );
-    f2Html.classList.add( "disappear" );
-    f3Html.classList.add( "disappear" );
-    f4Html.classList.add( "disappear" );
-    f5Html.classList.add( "disappear" );
-    f6Html.classList.add( "disappear" );
-    f7Html.classList.add( "disappear" );
-    f8Html.classList.add( "disappear" );
-    f9Html.classList.add( "disappear" );
-    f10Html.classList.add( "disappear" );
-    f11Html.classList.add( "disappear" );
-    f12Html.classList.add( "disappear" );
-    f13Html.classList.add( "disappear" );
-    f14Html.classList.add( "disappear" );
-    f15Html.classList.add( "disappear" );
-    f16Html.classList.add( "disappear" );
-    f17Html.classList.add( "disappear" );
-    f18Html.classList.add( "disappear" );
-    f19Html.classList.add( "disappear" );*/
     for ( var i = 1 ; i < 7 ; i++ ){
         c[i] = 0;
     }
@@ -1981,8 +1958,7 @@ function show(){
 }
 
 setButton.addEventListener('click', function(event){
-    if ( set.value != 0 && set.value )  {
-        console.log('1');
+    if ( set.value )  {
         iMainWeapon.value = set.value;
         iHead.value = set.value;
         iClothe.value = set.value;
@@ -2011,4 +1987,137 @@ restartButton.addEventListener('click', function(event){
         iNecklace.value = '';
         iBracelet.value = '';
         iRing.value = '';
+})
+
+let calnum = 0;//每次点加号为这个项目的所有数据增加序号，特别注意，这下面的所有数据存储皆从0开始
+let Cadd = document.getElementById("jia");
+let itemSave = [];
+let calBox = document.getElementById("cal-box");
+let inputAll = document.querySelectorAll(".input-part");//企图改个算法
+let partsort = [];//用来对应inputItem和inputAll，前面的算法懒得动了
+partsort[0] = 'mainWeapon';
+partsort[1] = 'head';
+partsort[2] = 'clothe';
+partsort[3] = 'hand';
+partsort[4] = 'belt';
+partsort[5] = 'pan';
+partsort[6] = 'shoes';
+partsort[7] = 'secondWeapon';
+partsort[8] = 'earrings';
+partsort[9] = 'necklace';
+partsort[10] = 'bracelet';
+partsort[11] = 'ring';
+
+
+Cadd.addEventListener('click',function(event){
+    
+    if ( secontSelectValue ){
+    cleardisappear();
+    transmit();
+    cal();
+        
+    itemSave.push({
+        id: calnum,
+        swork: secontSelectValue,
+        fwork: firstSelectValue,
+        c1: c[1],
+        c2: c[2],
+        c3: c[3],
+        c4: c[4],
+        c5: c[5],
+        c6: c[6],
+        f1: f[1],
+        f2: f[2],
+        f3: f[3],
+        f4: f[4],
+        f5: f[5],
+        f6: f[6],
+        f7: f[7],
+        f8: f[8],
+        f9: f[9],
+        f10: f[10],
+        f11: f[11],
+        f12: f[12],
+        f13: f[13],
+        f14: f[14],
+        f15: f[15],
+        f16: f[16],
+        f17: f[17],
+        f18: f[18],
+        f19: f[19],
+        i0: inputAll[0].value,
+        i1: inputAll[1].value,
+        i2: inputAll[2].value,
+        i3: inputAll[3].value,
+        i4: inputAll[4].value,
+        i5: inputAll[5].value,
+        i6: inputAll[6].value,
+        i7: inputAll[7].value,
+        i8: inputAll[8].value,
+        i9: inputAll[9].value,
+        i10: inputAll[10].value,
+        i11: inputAll[11].value
+    })
+    let calH = document.createElement("div");
+    calH.className = "cal-item";
+    calH.dataset.id = calnum;
+    calH.innerHTML = secontSelectValue;
+    let deH = document.createElement("div");
+    deH.className = "delete";
+    deH.dataset.id = calnum;
+    deH.innerHTML = 'x';
+    calBox.appendChild( calH );
+    calH.appendChild( deH );
+
+    calnum = calnum + 1;
+    }
+})
+
+calBox.addEventListener('click',function(event){
+    let target = event.target;
+    let idx = 0;
+    let calHall = document.querySelectorAll(".cal-item");
+    let deHall = document.querySelectorAll(".delete");
+    if (target.classList.contains("delete")){
+        idx = target.dataset.id;
+        calBox.removeChild( target.parentElement);
+        delete itemSave[ idx ];
+    }else if( target.classList.contains( "cal-item" ) ){
+        idx = target.dataset.id;
+        for ( var i = 1 ; i<7 ; i++ ){
+            c[ i ] = itemSave[ idx ][ `c${i}` ];
+        }
+        for ( var i = 1 ; i < 20 ; i++  ){
+            f[ i ] = itemSave[ idx ][ `f${i}` ];
+        }
+        changeinput( idx );
+        show();
+    }
+    
+    
+    console.log( calHall );
+    console.log( itemSave );
+})
+
+function changeinput( idx ){
+    for ( var i = 0 ; i < 12 ; i++ ){
+        inputAll[ i ].value = itemSave[ idx ][ `i${i}` ];
+    }
+}
+
+let Sum = document.getElementById("Sum-line");
+Sum.addEventListener('click', function(event){
+    cleardisappear();
+    for( var i = 0 ; i < itemSave.length ; i++ ){
+        if (itemSave[ i ]){
+            for ( var j = 1 ; j < 7 ; j++ ){
+                c[ j ] = c[j] + itemSave[ i ][ `c${j}` ];
+            }
+
+            for ( var j = 1 ; j < 20 ; j++ ){
+                f[ j ] = f[ j ] + itemSave[ i ][ `f${j}` ];
+            }
+        }
+    }
+    show();
 })
