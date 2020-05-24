@@ -1,5 +1,4 @@
 let all = document.getElementById("big-box")
-
 let ulSelectPosition = document.getElementById("select-position"); //ul
 let ulSelectWork = document.getElementById("select-work"); //ul
 let selectLine = document.getElementById("select-line"); //div
@@ -23,7 +22,6 @@ let buttonBox = document.getElementById("button-box");
 all.addEventListener('click', function (event) {
     let target = event.target;
 
-    console.log(target);
     if (target.classList.contains("position-select-position") && target.classList.contains("click-one")) {
         ulSelectPosition.classList.remove("disappear");
         firstSelect.classList.remove("no-append");
@@ -188,7 +186,6 @@ let f1G2Num = document.querySelectorAll(".f1-G2num");//这个数字是让所有f
 let f1Snum = document.querySelectorAll(".f1-snum");//二级的乘数
 let f1G2Fnum = document.querySelectorAll(".f1-G2Finalnum");//这个是二级×f1的最后数字
 
-console.log(f1G2Fnum);
 
 let c1Html = document.getElementById("c1");//c1 = 火之晶簇
 let c1 = 0;
@@ -1892,10 +1889,13 @@ function show(){
 
     if ( f[14] != 0 ){
         f14Hnum.innerHTML = f[14];
+        var num = 0;
         $("#f14").fadeIn("slow");
         for ( var i = 0 ; i < f14Snum.length ; i++){
             f14G2Num[i].innerHTML = f[14];
-            f14G2Fnum[i].innerHTML = parseInt( f14Snum[i].innerHTML ) * f[14];
+            num = parseInt( f14Snum[i].innerHTML ) * f[14] / 3
+            if (num % 1 === 0 ) f14G2Fnum[i].innerHTML = num;
+            else f14G2Fnum[i].innerHTML = num.toFixed(2);
         }
     }else if ( f[14] == 0 ){
         $("#f14").fadeOut("slow");
@@ -1903,10 +1903,13 @@ function show(){
 
     if ( f[15] != 0 ){
         f15Hnum.innerHTML = f[15];
+        var num = 0;
         $("#f15").fadeIn("slow");
         for ( var i = 0 ; i < f15Snum.length ; i++){
             f15G2Num[i].innerHTML = f[15];
-            f15G2Fnum[i].innerHTML = parseInt( f15Snum[i].innerHTML ) * f[15];
+            num = parseInt( f15Snum[i].innerHTML ) * f[15] / 3
+            if (num % 1 === 0 ) f15G2Fnum[i].innerHTML = num;
+            else f15G2Fnum[i].innerHTML = num.toFixed(2);
         }
     }else if ( f[15] == 0 ){
         $("#f15").fadeOut("slow");
@@ -1914,10 +1917,13 @@ function show(){
 
     if ( f[16] != 0 ){
         f16Hnum.innerHTML = f[16];
+        var num = 0;
         $("#f16").fadeIn("slow");
         for ( var i = 0 ; i < f16Snum.length ; i++){
             f16G2Num[i].innerHTML = f[16];
-            f16G2Fnum[i].innerHTML = parseInt( f16Snum[i].innerHTML ) * f[16];
+            num = parseInt( f16Snum[i].innerHTML ) * f[16] / 3
+            if (num % 1 === 0 ) f16G2Fnum[i].innerHTML = num;
+            else f16G2Fnum[i].innerHTML = num.toFixed(2);
         }
     }else if ( f[16] == 0 ){
         $("#f16").fadeOut("slow");
@@ -1925,10 +1931,13 @@ function show(){
 
     if ( f[17] != 0 ){
         f17Hnum.innerHTML = f[17];
+        var num = 0;
         $("#f17").fadeIn("slow");
         for ( var i = 0 ; i < f17Snum.length ; i++){
             f17G2Num[i].innerHTML = f[17];
-            f17G2Fnum[i].innerHTML = parseInt( f17Snum[i].innerHTML ) * f[17];
+            num = parseInt( f17Snum[i].innerHTML ) * f[17] / 3
+            if (num % 1 === 0 ) f17G2Fnum[i].innerHTML = num;
+            else f17G2Fnum[i].innerHTML = num.toFixed(2);
         }
     }else if ( f[17] == 0 ){
         $("#f17").fadeOut("slow");
@@ -1936,10 +1945,13 @@ function show(){
 
     if ( f[18] != 0 ){
         f18Hnum.innerHTML = f[18];
+        var num = 0;
         $("#f18").fadeIn("slow");
         for ( var i = 0 ; i < f18Snum.length ; i++){
             f18G2Num[i].innerHTML = f[18];
-            f18G2Fnum[i].innerHTML = parseInt( f18Snum[i].innerHTML ) * f[18];
+            num = parseInt( f18Snum[i].innerHTML ) * f[18] / 3
+            if (num % 1 === 0 ) f18G2Fnum[i].innerHTML = num;
+            else f18G2Fnum[i].innerHTML = num.toFixed(2);
         }
     }else if ( f[18] == 0 ){
         $("#f18").fadeOut("slow");
